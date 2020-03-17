@@ -3,6 +3,9 @@ const connectDB = require('./config/db');
 
 const app = express();
 
+// Bodyparser middleware
+app.use(express.json());
+
 // Connect to database
 connectDB();
 
