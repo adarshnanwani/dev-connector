@@ -92,12 +92,17 @@ router.route('/:postId').get(auth, async (req, res) => {
 // @access  Private
 router.route('/:postId').delete(auth, async (req, res) => {
   try {
-    const post = await Post.findByIdAndDelete(req.params.postId);
+    const post = await Post.findById(req.params.postId);
     if (!post) {
       return res
         .status(404)
         .json({ msg: `No post found for the id ${req.params.postId}` });
     }
+
+    if (post.user.toString() === req.user.id) {
+      return res.status(401).json({ msg: 'User not authorized' });
+    }
+    await post.remove();
     res.send('Post deleted');
   } catch (err) {
     console.log(err.message);
