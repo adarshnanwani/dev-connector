@@ -45,4 +45,22 @@ router.post(
   }
 );
 
+// @route   GET api/posts
+// @desc    Get all posts
+// @access  Private
+router.route('/').get(auth, async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.user.id }).sort({
+      createdAt: -1
+    });
+    if (!posts) {
+      return res.status(200).json({ msg: 'No posts found for this user.' });
+    }
+    res.json(posts);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
