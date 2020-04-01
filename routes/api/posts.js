@@ -63,4 +63,51 @@ router.route('/').get(auth, async (req, res) => {
   }
 });
 
+// @route   GET api/posts/:postId
+// @desc    Get post by id
+// @access  Private
+router.route('/:postId').get(auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json({ msg: `No post found for the id ${postId}` });
+    }
+    res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === 'ObjectId') {
+      return res
+        .status(404)
+        .json({ msg: `No post found for the id ${req.params.postId}` });
+    }
+    res.s;
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route   DELETE api/posts/:postId
+// @desc    Delete post by id
+// @access  Private
+router.route('/:postId').delete(auth, async (req, res) => {
+  try {
+    const post = await Post.findByIdAndDelete(req.params.postId);
+    if (!post) {
+      return res
+        .status(404)
+        .json({ msg: `No post found for the id ${req.params.postId}` });
+    }
+    res.send('Post deleted');
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === 'ObjectId') {
+      return res
+        .status(404)
+        .json({ msg: `No post found for the id ${req.params.postId}` });
+    }
+    res.status(500).send('Server Error');
+  }
+});
+
 module.exports = router;
