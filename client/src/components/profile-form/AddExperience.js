@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { addExperience } from '../../actions/profile';
 
-const AddEducation = ({ addExperience, history }) => {
+const AddExperience = ({ addExperience, history }) => {
   const [formData, setFormData] = useState({
     title: '',
     company: '',
@@ -122,7 +122,7 @@ const AddEducation = ({ addExperience, history }) => {
   );
 };
 
-AddEducation.propTypes = {
+AddExperience.propTypes = {
   addExperience: PropTypes.func.isRequired
 };
 
