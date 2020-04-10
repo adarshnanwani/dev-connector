@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import ProfileTop from './ProfileTop';
+import Top from './Top';
+import Experience from './Experience';
+import Education from './Education';
 import About from './About';
 import { getProfileById } from '../../actions/profile';
 
@@ -33,8 +35,32 @@ const Profile = ({
               </Link>
             )}
           <div className='profile-grid my-1'>
-            <ProfileTop profile={profile} />
+            <Top profile={profile} />
             <About profile={profile} />
+            <div className='profile-exp bg-white p-2'>
+              <h2 className='text-primary'>Experiences</h2>
+              {profile.experience.length > 0 ? (
+                <Fragment>
+                  {profile.experience.map((exp) => (
+                    <Experience key={exp._id} experience={exp} />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No experience credentials</h4>
+              )}
+            </div>
+            <div className='profile-edu bg-white p-2'>
+              <h2 className='text-primary'>Education</h2>
+              {profile.education.length > 0 ? (
+                <Fragment>
+                  {profile.education.map((edu) => (
+                    <Education key={edu._id} education={edu} />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No education credentials</h4>
+              )}
+            </div>
           </div>
         </Fragment>
       )}

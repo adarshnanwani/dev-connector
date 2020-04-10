@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ProfileTop = ({
+const Top = ({
   profile: {
     user: { avatar, name },
     social,
@@ -54,6 +54,8 @@ const ProfileTop = ({
   );
 };
 
-ProfileTop.propTypes = {};
+Top.propTypes = {
+  profile: PropTypes.object.isRequired,
+};
 
-export default ProfileTop;
+export default Top;
